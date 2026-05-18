@@ -1,11 +1,14 @@
 import { useState } from "react";
 
+const WAITLIST_API = "https://buildafr.com/waitlist-api.php";
+
 interface EmailSignupProps {
   dark?: boolean;
   placeholder?: string;
   buttonLabel?: string;
   successMessage?: string;
   size?: "sm" | "md" | "lg";
+  role?: string;
 }
 
 export function EmailSignup({
@@ -14,9 +17,11 @@ export function EmailSignup({
   buttonLabel = "Join the Waitlist →",
   successMessage = "You're on the list! We'll be in touch soon.",
   size = "md",
+  role,
 }: EmailSignupProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(false);
 
   const heights = { sm: 44, md: 52, lg: 60 };
@@ -24,10 +29,22 @@ export function EmailSignup({
   const h = heights[size];
   const fs = fontSizes[size];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.includes("@")) return;
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      await fetch(WAITLIST_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, role: role ?? null, source: "website" }),
+      });
+    } catch {
+      // Fail silently — still show success to user
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   };
 
   if (submitted) {
@@ -98,6 +115,7 @@ export function EmailSignup({
       />
       <button
         type="submit"
+        disabled={loading}
         style={{
           height: h,
           padding: `0 ${size === "lg" ? 28 : 22}px`,
@@ -108,9 +126,10 @@ export function EmailSignup({
           fontSize: fs,
           fontWeight: 700,
           fontFamily: "'Inter', sans-serif",
-          cursor: "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
           whiteSpace: "nowrap",
           transition: "transform 0.15s, box-shadow 0.15s, opacity 0.15s",
+          opacity: loading ? 0.7 : 1,
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.transform = "scale(1.02)";
@@ -121,7 +140,7 @@ export function EmailSignup({
           (e.currentTarget as HTMLElement).style.opacity = "1";
         }}
       >
-        {buttonLabel}
+        {loading ? "Joining…" : buttonLabel}
       </button>
     </form>
   );

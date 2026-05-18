@@ -18,9 +18,11 @@ export function Navbar() {
 
   return (
     <>
+      {/* Spacer so content isn't hidden behind fixed nav */}
+      <div style={{ height: 64, flexShrink: 0 }} />
       <nav
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
