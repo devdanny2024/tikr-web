@@ -42,7 +42,7 @@ export function Navbar() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           style={{ flexShrink: 0, cursor: "pointer", display: "flex", alignItems: "center" }}
         >
-          <img src="/logo-primary.png" alt="Buildafr" style={{ height: 36, objectFit: "contain" }} />
+          <img src="/logo-web.png" alt="Buildafr" style={{ height: 36, objectFit: "contain" }} />
         </div>
 
         {/* Center nav links — hidden on mobile */}
@@ -149,7 +149,7 @@ export function Navbar() {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
-            <img src="/logo-primary.png" alt="Buildafr" style={{ height: 34, objectFit: "contain" }} />
+            <img src="/logo-web.png" alt="Buildafr" style={{ height: 34, objectFit: "contain" }} />
             <button onClick={() => setMobileOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#0A0A0A" }}>
               <X size={24} />
             </button>

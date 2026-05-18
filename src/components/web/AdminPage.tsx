@@ -114,7 +114,7 @@ export function AdminPage() {
           }}
         >
           <div style={{ marginBottom: 32, textAlign: "center" }}>
-            <img src="/logo.png" alt="Buildafr" style={{ height: 32, objectFit: "contain", marginBottom: 16 }} />
+            <img src="/logo-primary.png" alt="Buildafr" style={{ height: 32, objectFit: "contain", marginBottom: 16 }} />
             <div style={{ color: "#636366", fontSize: 14 }}>Waitlist Admin</div>
           </div>
 
@@ -173,7 +173,7 @@ export function AdminPage() {
       {/* Header */}
       <div style={{ background: "#1C1C1E", borderBottom: "1px solid #2C2C2E", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <img src="/logo.png" alt="Buildafr" style={{ height: 28, objectFit: "contain" }} />
+          <img src="/logo-primary.png" alt="Buildafr" style={{ height: 28, objectFit: "contain" }} />
           <span style={{ color: "#636366", fontSize: 14 }}>/ Waitlist Admin</span>
         </div>
         <button
