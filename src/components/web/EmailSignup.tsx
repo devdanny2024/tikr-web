@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const WAITLIST_API = "https://buildafr.com/waitlist-api.php";
+const WAITLIST_API = (import.meta.env.VITE_WAITLIST_API ?? "https://api.buildafr.com") + "/waitlist";
 
 interface EmailSignupProps {
   dark?: boolean;

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-const API_URL = "https://buildafr.com/waitlist-api.php";
+const API_URL = (import.meta.env.VITE_WAITLIST_API ?? "https://api.buildafr.com") + "/waitlist";
 const ADMIN_SECRET = "bfr_adm_2026_K9xPmQr7wNsT";
 
 interface WaitlistEntry {
