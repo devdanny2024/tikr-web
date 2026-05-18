@@ -132,7 +132,7 @@ export function ProblemSection() {
               border: "1px solid #2C2C2E",
             }}
           >
-            <div style={{ color: "#636366", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>Without Tikr</div>
+            <div style={{ color: "#636366", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>Without Buildafr</div>
             <div style={{ color: "white", fontSize: 18, fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 32 }}>Disconnected chaos</div>
 
             {/* SVG chaos graph */}

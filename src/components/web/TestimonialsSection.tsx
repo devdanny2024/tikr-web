@@ -4,7 +4,7 @@ import { useInView } from "motion/react";
 
 const TESTIMONIALS = [
   {
-    quote: "We stopped losing 15% of our site materials every month after deploying Tikr. The material tracking alone paid for the subscription in the first week.",
+    quote: "We stopped losing 15% of our site materials every month after deploying Buildafr. The material tracking alone paid for the subscription in the first week.",
     name: "Chidi Okafor",
     title: "Project Director",
     company: "Lagos Build Co.",

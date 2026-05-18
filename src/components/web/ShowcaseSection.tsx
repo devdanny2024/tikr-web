@@ -101,7 +101,7 @@ function MobileTab() {
             }}
           >
             <div style={{ background: "#1C1C1E", borderRadius: 16, padding: 16, marginBottom: 12 }}>
-              <div style={{ color: p.color, fontSize: 12, fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>Tikr</div>
+              <div style={{ color: p.color, fontSize: 12, fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>Buildafr</div>
               <div style={{ color: "white", fontSize: 14, fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 4 }}>Lekki Phase 2</div>
               <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22C55E" }} />
@@ -255,7 +255,7 @@ export function ShowcaseSection() {
         transition={{ duration: 0.6 }}
         style={{ textAlign: "center", marginBottom: 48 }}
       >
-        <h2 style={{ color: "#0A0A0A", fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>See Tikr in Action</h2>
+        <h2 style={{ color: "#0A0A0A", fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>See Buildafr in Action</h2>
         <p style={{ color: "#636366", fontSize: 20, fontFamily: "'Inter', sans-serif" }}>Every role, every screen, every workflow.</p>
       </motion.div>
 

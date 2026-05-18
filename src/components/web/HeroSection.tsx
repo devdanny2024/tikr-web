@@ -27,7 +27,7 @@ function DashboardMockup() {
         <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#F59E0B" }} />
         <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#22C55E" }} />
         <div style={{ flex: 1, background: "#2C2C2E", borderRadius: 6, height: 26, display: "flex", alignItems: "center", paddingLeft: 12, marginLeft: 8 }}>
-          <span style={{ color: "#636366", fontSize: 12, fontFamily: "'Inter', sans-serif" }}>app.tikr.build/dashboard</span>
+          <span style={{ color: "#636366", fontSize: 12, fontFamily: "'Inter', sans-serif" }}>app.buildafr.build/dashboard</span>
         </div>
       </div>
 
@@ -259,7 +259,7 @@ export function HeroSection() {
           margin: "0 0 48px",
         }}
       >
-        Tikr is the construction operating system built for Africa. Real-time tracking, worker accountability, AI delay prediction — managed from the field, visible from anywhere.
+        Buildafr is the construction operating system built for Africa. Real-time tracking, worker accountability, AI delay prediction — managed from the field, visible from anywhere.
       </motion.p>
 
       {/* Email waitlist */}
@@ -283,7 +283,7 @@ export function HeroSection() {
         transition={{ duration: 0.5, delay: 1.15 }}
         style={{ color: "#636366", fontSize: 13, fontFamily: "'Inter', sans-serif", marginBottom: 56 }}
       >
-        Be first to access Tikr · No credit card required
+        Be first to access Buildafr · No credit card required
       </motion.div>
 
       {/* Social proof */}

@@ -14,7 +14,7 @@ const STEPS = [
     number: "2",
     icon: <Smartphone size={36} color="#F59E0B" />,
     title: "Deploy to the Field",
-    body: "Your team downloads the Tikr app. GPS check-ins, reports, and photos go live immediately.",
+    body: "Your team downloads the Buildafr app. GPS check-ins, reports, and photos go live immediately.",
   },
   {
     number: "3",

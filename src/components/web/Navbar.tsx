@@ -35,12 +35,12 @@ export function Navbar() {
           boxSizing: "border-box",
         }}
       >
-        {/* Wordmark */}
+        {/* Logo */}
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ color: "#0A0A0A", fontWeight: 800, fontSize: 20, letterSpacing: -0.5, fontFamily: "'Inter', sans-serif", flexShrink: 0, cursor: "pointer" }}
+          style={{ flexShrink: 0, cursor: "pointer", display: "flex", alignItems: "center" }}
         >
-          Tikr
+          <img src="/logo.png" alt="Buildafr" style={{ height: 36, objectFit: "contain" }} />
         </div>
 
         {/* Center nav links — hidden on mobile */}
@@ -147,7 +147,7 @@ export function Navbar() {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
-            <div style={{ color: "#0A0A0A", fontWeight: 800, fontSize: 20, fontFamily: "'Inter', sans-serif" }}>Tikr</div>
+            <img src="/logo.png" alt="Buildafr" style={{ height: 34, objectFit: "contain" }} />
             <button onClick={() => setMobileOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#0A0A0A" }}>
               <X size={24} />
             </button>

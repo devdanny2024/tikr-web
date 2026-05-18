@@ -35,8 +35,8 @@ export function Footer() {
         >
           {/* Brand */}
           <div>
-            <div style={{ color: "#FFFFFF", fontWeight: 800, fontSize: 22, letterSpacing: -0.5, fontFamily: "'Inter', sans-serif", marginBottom: 10 }}>
-              Tikr
+            <div style={{ marginBottom: 10 }}>
+              <img src="/logo-primary.png" alt="Buildafr" style={{ height: 32, objectFit: "contain" }} />
             </div>
             <div style={{ color: "#636366", fontSize: 15, fontFamily: "'Inter', sans-serif", marginBottom: 6 }}>
               Build with Visibility. Deliver with Proof.
@@ -131,7 +131,7 @@ export function Footer() {
           }}
         >
           <div style={{ color: "#636366", fontSize: 13, fontFamily: "'Inter', sans-serif" }}>
-            © 2026 Tikr Technologies Ltd. All rights reserved.
+            © 2026 Buildafr Technologies Ltd. All rights reserved.
           </div>
           <div style={{ display: "flex", gap: 20 }}>
             {SOCIAL.map((s) => (

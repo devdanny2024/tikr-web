@@ -80,7 +80,7 @@ export function SolutionSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           style={{ color: "#8E8E93", fontSize: 18, fontFamily: "'Inter', sans-serif", lineHeight: 1.6 }}
         >
-          Tikr connects field teams, site managers, procurement officers, and clients in real time — from any device, even offline.
+          Buildafr connects field teams, site managers, procurement officers, and clients in real time — from any device, even offline.
         </motion.p>
       </div>
 
