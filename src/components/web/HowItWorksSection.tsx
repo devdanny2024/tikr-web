@@ -32,7 +32,7 @@ export function HowItWorksSection() {
     <section
       ref={ref}
       id="how-it-works"
-      style={{ background: "#F5F5F7", padding: "100px 40px" }}
+      style={{ background: "#F5F5F7", padding: "clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px)" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

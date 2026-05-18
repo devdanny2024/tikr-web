@@ -44,7 +44,7 @@ export function RolesSection() {
     <section
       ref={ref}
       id="roles"
-      style={{ background: "#1C1C1E", padding: "100px 40px" }}
+      style={{ background: "#1C1C1E", padding: "clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px)" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

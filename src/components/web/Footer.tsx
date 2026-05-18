@@ -21,7 +21,7 @@ const SOCIAL = ["LinkedIn", "Twitter/X", "YouTube", "Instagram"];
 
 export function Footer() {
   return (
-    <footer style={{ background: "#0A0A0A", padding: "80px 40px 40px" }}>
+    <footer style={{ background: "#0A0A0A", padding: "clamp(48px, 6vw, 80px) clamp(20px, 4vw, 40px) clamp(32px, 4vw, 40px)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Top row */}
         <div

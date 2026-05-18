@@ -33,7 +33,7 @@ export function ProblemSection() {
       id="problem"
       style={{
         background: "#FFFFFF",
-        padding: "120px 40px",
+        padding: "clamp(60px, 10vw, 120px) clamp(20px, 4vw, 40px)",
       }}
     >
       <div
@@ -42,7 +42,7 @@ export function ProblemSection() {
           margin: "0 auto",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 80,
+          gap: "clamp(40px, 6vw, 80px)",
           alignItems: "center",
         }}
         className="problem-grid"

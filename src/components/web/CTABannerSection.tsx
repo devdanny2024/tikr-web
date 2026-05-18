@@ -10,7 +10,7 @@ export function CTABannerSection() {
   return (
     <section
       ref={ref}
-      style={{ background: "#F59E0B", padding: "80px 40px", textAlign: "center" }}
+      style={{ background: "#F59E0B", padding: "clamp(60px, 8vw, 80px) clamp(20px, 4vw, 40px)", textAlign: "center" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -13,7 +13,7 @@ const TABS = [
 function DashboardTab() {
   return (
     <div style={{ background: "#111", borderRadius: 12, padding: 24, border: "1px solid #2C2C2E", minHeight: 420 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }} className="sc-stats-grid">
         {[
           { label: "Active Sites", value: "12", icon: <MapPin size={14} color="#F59E0B" /> },
           { label: "Workers Checked In", value: "247", icon: <Users size={14} color="#22C55E" /> },
@@ -27,7 +27,7 @@ function DashboardTab() {
           </div>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 }} className="sc-map-grid">
         {/* Map area */}
         <div style={{ background: "#1C1C1E", borderRadius: 10, padding: 16, border: "1px solid #2C2C2E", minHeight: 200, position: "relative", overflow: "hidden" }}>
           <div style={{ color: "#8E8E93", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>Project Map — West Africa</div>
@@ -127,7 +127,7 @@ function ClientPortalTab() {
   return (
     <div style={{ background: "#FAFAFA", borderRadius: 12, padding: 32, minHeight: 360 }}>
       <div style={{ color: "#0A0A0A", fontSize: 18, fontWeight: 700, fontFamily: "'Inter', sans-serif", marginBottom: 24 }}>Project Overview — Lekki Phase 2</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }} className="sc-client-stats">
         {[{ label: "Overall Progress", value: "67%", color: "#F59E0B" }, { label: "Milestones Done", value: "8/12", color: "#22C55E" }, { label: "Days Remaining", value: "42", color: "#3B82F6" }].map((s) => (
           <div key={s.label} style={{ background: "white", borderRadius: 12, padding: 20, border: "1px solid #E5E5EA", textAlign: "center" }}>
             <div style={{ color: s.color, fontSize: 28, fontWeight: 800, fontFamily: "'Inter', sans-serif" }}>{s.value}</div>
@@ -169,7 +169,7 @@ function AITab() {
 
   return (
     <div style={{ background: "#111", borderRadius: 12, padding: 32, minHeight: 360 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "center" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "center" }} className="sc-ai-grid">
         {/* Gauge */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div style={{ color: "#8E8E93", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 20 }}>AI Risk Score — Lekki Phase 2</div>
@@ -247,7 +247,7 @@ export function ShowcaseSection() {
     <section
       ref={ref}
       id="showcase"
-      style={{ background: "#FFFFFF", padding: "100px 40px" }}
+      style={{ background: "#FFFFFF", padding: "clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px)" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -294,7 +294,7 @@ export function ShowcaseSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
-        style={{ maxWidth: 1100, margin: "0 auto", background: "#F5F5F7", borderRadius: 20, padding: "32px", border: "1px solid #E5E5EA" }}
+        style={{ maxWidth: 1100, margin: "0 auto", background: "#F5F5F7", borderRadius: 20, padding: "clamp(16px, 3vw, 32px)", border: "1px solid #E5E5EA", overflowX: "hidden" }}
       >
         <motion.div
           key={activeTab}
@@ -305,6 +305,19 @@ export function ShowcaseSection() {
           {renderTab()}
         </motion.div>
       </motion.div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .sc-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .sc-map-grid { grid-template-columns: 1fr !important; }
+          .sc-client-stats { grid-template-columns: repeat(2, 1fr) !important; }
+          .sc-ai-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .sc-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .sc-client-stats { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }

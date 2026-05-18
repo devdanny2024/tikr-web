@@ -18,6 +18,7 @@ function DashboardMockup() {
         boxShadow: "0 40px 120px rgba(0,0,0,0.8), 0 0 80px rgba(245,158,11,0.12)",
         maxWidth: 900,
         width: "100%",
+        overflowX: "hidden",
       }}
     >
       {/* Browser chrome */}
@@ -31,9 +32,9 @@ function DashboardMockup() {
       </div>
 
       {/* Dashboard content */}
-      <div style={{ padding: "20px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+      <div style={{ padding: "20px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }} className="dash-outer-grid">
         {/* Stats row */}
-        <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+        <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }} className="dash-stats-grid">
           {[
             { label: "Active Sites", value: "12", color: "#F59E0B" },
             { label: "Workers Today", value: "247", color: "#22C55E" },
@@ -48,7 +49,7 @@ function DashboardMockup() {
         </div>
 
         {/* Africa Map Panel */}
-        <div style={{ gridColumn: "1 / 3", background: "#1C1C1E", borderRadius: 10, padding: 16, border: "1px solid #2C2C2E", minHeight: 180, position: "relative", overflow: "hidden" }}>
+        <div style={{ gridColumn: "1 / 3", background: "#1C1C1E", borderRadius: 10, padding: 16, border: "1px solid #2C2C2E", minHeight: 180, position: "relative", overflow: "hidden" }} className="dash-map-panel">
           <div style={{ color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 12, fontFamily: "'Inter', sans-serif" }}>Active Projects — Africa</div>
           {/* Simplified Africa shape using SVG */}
           <svg viewBox="0 0 200 220" style={{ position: "absolute", bottom: 0, right: 0, opacity: 0.15, width: 160 }}>
@@ -138,7 +139,7 @@ export function HeroSection() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "100px 40px 80px",
+        padding: "clamp(72px, 10vw, 100px) clamp(20px, 4vw, 40px) clamp(60px, 8vw, 80px)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -345,6 +346,14 @@ export function HeroSection() {
           <DashboardMockup />
         </motion.div>
       </motion.div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .dash-outer-grid { grid-template-columns: 1fr !important; }
+          .dash-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .dash-map-panel { grid-column: 1 / -1 !important; }
+        }
+      `}</style>
     </section>
   );
 }

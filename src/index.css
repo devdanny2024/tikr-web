@@ -8,9 +8,25 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Prevent any child from causing horizontal overflow */
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* EmailSignup stacks on very small screens */
+@media (max-width: 480px) {
+  form[style] {
+    flex-direction: column !important;
+  }
 }

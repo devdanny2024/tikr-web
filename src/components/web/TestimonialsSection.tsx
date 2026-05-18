@@ -42,7 +42,7 @@ export function TestimonialsSection() {
     <section
       ref={ref}
       id="case-studies"
-      style={{ background: "#FFFFFF", padding: "100px 40px" }}
+      style={{ background: "#FFFFFF", padding: "clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px)" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
