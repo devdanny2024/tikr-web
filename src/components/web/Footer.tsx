@@ -36,7 +36,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div style={{ marginBottom: 10 }}>
-              <img src="/logo-primary.png" alt="Buildafr" style={{ height: 32, objectFit: "contain" }} />
+              <img src="/logo.png" alt="Buildafr" style={{ height: 32, objectFit: "contain" }} />
             </div>
             <div style={{ color: "#636366", fontSize: 15, fontFamily: "'Inter', sans-serif", marginBottom: 6 }}>
               Build with Visibility. Deliver with Proof.
