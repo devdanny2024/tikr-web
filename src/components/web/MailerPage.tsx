@@ -42,6 +42,12 @@ interface PreviewEmail {
   html: string;
 }
 
+interface MailerSettings {
+  senderName: string;
+  senderEmail: string;
+  ratePerHour: number;
+}
+
 // ─── Shared UI Primitives ─────────────────────────────────────────────────────
 
 const s = {
@@ -131,18 +137,29 @@ type Tab = "campaigns" | "new" | "templates" | "settings";
 
 // ─── New Campaign Form ────────────────────────────────────────────────────────
 
-function NewCampaignForm({ onCreated, templates }: { onCreated: () => void; templates: Template[] }) {
+function NewCampaignForm({ onCreated, templates, settings }: { onCreated: () => void; templates: Template[]; settings: MailerSettings | null }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [form, setForm] = useState({
     name: "",
     type: "COLD_OUTREACH" as "COLD_OUTREACH" | "MARKETING",
     subject: "",
-    senderName: "Kayode, Co-founder at Buildafr",
-    senderEmail: "kayode@buildafr.com",
+    senderName: settings?.senderName ?? "Kayode, Co-founder at Buildafr",
+    senderEmail: settings?.senderEmail ?? "kayode@buildafr.com",
     notificationEmails: "",
     templateId: "",
   });
+
+  // Sync defaults when settings load
+  useEffect(() => {
+    if (settings) {
+      setForm(f => ({
+        ...f,
+        senderName: f.senderName === "Kayode, Co-founder at Buildafr" ? settings.senderName : f.senderName,
+        senderEmail: f.senderEmail === "kayode@buildafr.com" ? settings.senderEmail : f.senderEmail,
+      }));
+    }
+  }, [settings]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState<PreviewEmail[] | null>(null);
@@ -455,26 +472,89 @@ function TemplatesTab({ templates, onRefresh }: { templates: Template[]; onRefre
 
 // ─── Settings Tab ─────────────────────────────────────────────────────────────
 
-function SettingsTab() {
+function SettingsTab({ settings, onSaved }: { settings: MailerSettings | null; onSaved: (s: MailerSettings) => void }) {
+  const [form, setForm] = useState<MailerSettings>({
+    senderName: settings?.senderName ?? "",
+    senderEmail: settings?.senderEmail ?? "",
+    ratePerHour: settings?.ratePerHour ?? 20,
+  });
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (settings) setForm(settings);
+  }, [settings]);
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.senderName || !form.senderEmail) { setError("Sender name and email are required"); return; }
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch(`${API}/settings`, {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) { const d = await res.json(); throw new Error(d.message); }
+      const d = await res.json();
+      onSaved(d.data);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to save");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const set = (k: keyof MailerSettings) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm(f => ({ ...f, [k]: k === "ratePerHour" ? Number(e.target.value) : e.target.value }));
+
   return (
     <div style={{ maxWidth: 480 }}>
-      <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Mailer Settings</h2>
-      <p style={{ color: "#636366", fontSize: 14, marginBottom: 24 }}>Configure defaults — overridable per campaign.</p>
-      <div style={{ ...s.card }}>
-        <div style={{ color: "#8E8E93", fontSize: 13, lineHeight: 1.8 }}>
-          <div>Default sender name and email are set via environment variables on the VPS:</div>
-          <div style={{ background: "#0A0A0A", borderRadius: 8, padding: 16, marginTop: 12, fontFamily: "monospace", fontSize: 12, color: "#c7c7cc" }}>
-            COLD_EMAIL_SENDER_NAME=<br/>
-            COLD_EMAIL_SENDER_ADDRESS=<br/>
-            MAILER_RATE_PER_HOUR=20
-          </div>
-          <div style={{ marginTop: 12 }}>Notification emails and sender identity are configured <strong style={{ color: "#fff" }}>per campaign</strong> in the New Campaign form.</div>
-          <div style={{ marginTop: 12, padding: "12px 16px", background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.2)", borderRadius: 8 }}>
-            <strong style={{ color: "#F59E0B" }}>Rate limit:</strong> {" "}
-            <span>20 emails/hour by default. Increase MAILER_RATE_PER_HOUR in .env to send faster (max ~50/hr recommended for Gmail SMTP).</span>
+      <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Mailer Settings</h2>
+      <p style={{ color: "#636366", fontSize: 14, marginBottom: 28 }}>Defaults pre-filled in every new campaign — overridable per campaign.</p>
+
+      <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <div style={s.card}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            <div>
+              <label style={s.label}>Default Sender Name</label>
+              <input value={form.senderName} onChange={set("senderName")}
+                placeholder="e.g. Kayode, Co-founder at Buildafr"
+                style={s.input} />
+              <div style={{ color: "#636366", fontSize: 11, marginTop: 4 }}>This is the name Claude signs cold emails with.</div>
+            </div>
+
+            <div>
+              <label style={s.label}>Default Sender Email</label>
+              <input value={form.senderEmail} onChange={set("senderEmail")}
+                type="email"
+                placeholder="e.g. kayode@buildafr.com"
+                style={s.input} />
+            </div>
+
+            <div>
+              <label style={s.label}>Send Rate (emails per hour)</label>
+              <input value={form.ratePerHour} onChange={set("ratePerHour")}
+                type="number" min={1} max={100}
+                style={s.input} />
+              <div style={{ color: "#636366", fontSize: 11, marginTop: 4 }}>
+                Recommended: 20–50/hr for Gmail SMTP. Changes take effect on the next campaign send.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+
+        {error && <div style={{ color: "#EF4444", fontSize: 13 }}>{error}</div>}
+
+        <button type="submit" disabled={saving}
+          style={{ ...s.btn(saved ? "secondary" : "primary"), height: 44, opacity: saving ? 0.6 : 1 }}>
+          {saving ? "Saving…" : saved ? "✓ Saved" : "Save Settings"}
+        </button>
+      </form>
     </div>
   );
 }
@@ -486,6 +566,7 @@ export function MailerPage() {
   const [tab, setTab] = useState<Tab>("campaigns");
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
+  const [settings, setSettings] = useState<MailerSettings | null>(null);
   const [loadingC, setLoadingC] = useState(false);
   const [loadingT, setLoadingT] = useState(false);
 
@@ -511,11 +592,20 @@ export function MailerPage() {
     }
   }, []);
 
+  const fetchSettings = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/settings`, { headers: { "X-Admin-Key": ADMIN_KEY } });
+      const d = await res.json();
+      if (d.success) setSettings(d.data);
+    } catch { /* non-fatal */ }
+  }, []);
+
   useEffect(() => {
     if (!authed) return;
     fetchCampaigns();
     fetchTemplates();
-  }, [authed, fetchCampaigns, fetchTemplates]);
+    fetchSettings();
+  }, [authed, fetchCampaigns, fetchTemplates, fetchSettings]);
 
   // Auto-refresh when campaigns are sending
   useEffect(() => {
@@ -538,7 +628,6 @@ export function MailerPage() {
     { key: "settings", label: "Settings" },
   ];
 
-  // suppress unused warning
   void loadingT;
 
   return (
@@ -583,9 +672,9 @@ export function MailerPage() {
 
         {/* Content */}
         {tab === "campaigns" && <CampaignsList campaigns={campaigns} loading={loadingC} onRefresh={fetchCampaigns} />}
-        {tab === "new" && <NewCampaignForm onCreated={() => { fetchCampaigns(); setTab("campaigns"); }} templates={templates} />}
+        {tab === "new" && <NewCampaignForm onCreated={() => { fetchCampaigns(); setTab("campaigns"); }} templates={templates} settings={settings} />}
         {tab === "templates" && <TemplatesTab templates={templates} onRefresh={fetchTemplates} />}
-        {tab === "settings" && <SettingsTab />}
+        {tab === "settings" && <SettingsTab settings={settings} onSaved={s => setSettings(s)} />}
       </div>
     </div>
   );
