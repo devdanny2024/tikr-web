@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { LandingPage } from "./components/web/LandingPage";
 import { AdminPage } from "./components/web/AdminPage";
+import { MailerPage } from "./components/web/MailerPage";
 import { VerifyEmailPage } from "./components/web/VerifyEmailPage";
 import { LoginPage } from "./components/dashboard/LoginPage";
 import { DashboardLayout } from "./components/dashboard/DashboardLayout";
@@ -22,6 +23,7 @@ export default function App() {
         {/* Marketing */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/mailer" element={<MailerPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
 
         {/* Auth */}
